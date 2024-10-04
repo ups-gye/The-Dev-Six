@@ -1,1 +1,12 @@
-# The-Dev-Six
+# The-Dev-Six  
+Patrones de Diseño de APIs 🚀  
+Bienvenidos 👋  
+Este módulo se enfoca en el diseño, implementación y buenas prácticas para crear APIs RESTful, que son esenciales para la comunicación entre aplicaciones y servicios en la actualidad.  
+  
+Integrantes del Grupo 👥  
+Romel Ávila 🛠️  
+Adrián Cabrera 💻  
+Josué Rea 🧑‍💼  
+Walther Toledo 🎯  
+Marlon Ulloa 🚀  
+Edisson Redrován 📊  
