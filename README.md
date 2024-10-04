@@ -11,6 +11,6 @@ Walther Toledo 🎯
 Marlon Ulloa 🚀  
 Edisson Redrován 📊  
   
-![image](https://github.com/user-attachments/assets/406ad5b4-e37e-4ea3-9452-55e366f83f88)
+<img src="https://github.com/user-attachments/assets/406ad5b4-e37e-4ea3-9452-55e366f83f88" width="300"/>
 
 
