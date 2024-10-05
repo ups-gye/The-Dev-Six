@@ -16,7 +16,13 @@ async function obtener_usuario(dato) {
      return resultado
 }
 
+async function actualizar_usuario(id, dato) {
+    const resultado = await model.findByIdAndUpdate(id, dato, { new: true });
+    return resultado;
+}
+
 module.exports = {
     insertar:insertar_usuario,
     obtener:obtener_usuario,
+    actualizar:actualizar_usuario
 }

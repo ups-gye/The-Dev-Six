@@ -17,6 +17,13 @@ routes.get('/', function(req, res) {
         .catch( (error) => response.error(req, res, error, 400) )
 })
 
+routes.put('/:id', function(req, res) {
+    const userId = req.params.id; // Obtener el ID del usuario a actualizar
+    controller.actualizar_usuario(userId, req.body)
+        .then((data) => response.success(req, res, data, 200))
+        .catch((error) => response.error(req, res, error, 400));
+});
+
 routes.put('/', function(req, res) {
 
 })

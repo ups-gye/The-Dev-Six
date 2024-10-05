@@ -20,7 +20,18 @@ function obtener_usuario( dato ) {
     } )
 }
 
+function actualizar_usuario(id, dato) {
+    return new Promise((resolve, reject) => {
+        if (!dato.nombre || !dato.apellido) {
+            reject('Los datos se encuentran incompletos.');
+        } else {
+            resolve(storage.actualizar(id, dato));
+        }
+    });
+}
+
 module.exports = {
     insertar_usuario,
-    obtener_usuario
+    obtener_usuario,
+    actualizar_usuario
 }

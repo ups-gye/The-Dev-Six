@@ -29,3 +29,27 @@ function guardar_usuario() {
             alert('Error al ingresar.')
         } )
 }
+
+function actualizar_usuario() {
+    const id = document.getElementById('id').value;
+    const nombre = document.getElementById('nombre_actualizar').value;
+    const apellido = document.getElementById('apellido_actualizar').value;
+
+    let data = { nombre, apellido };
+
+    return new Promise((resolve, reject) => {
+        const request_options = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+
+        fetch(`/usuario/${id}`, request_options)
+            .then((data) => resolve(data.json()))
+            .catch((error) => reject(`[error]: ${error}`));
+    })
+    .then(response => alert('Usuario actualizado exitosamente.'))
+    .catch(error => alert('Error al actualizar el usuario.'));
+}
