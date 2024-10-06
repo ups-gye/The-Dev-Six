@@ -30,8 +30,19 @@ function actualizar_usuario(id, dato) {
     });
 }
 
+function eliminar_usuario(id) {
+    return new Promise((resolve, reject) => {
+        if (!id) {
+            reject('No se proporcionó el ID del usuario.');
+        } else {
+            resolve(storage.eliminar(id));
+        }
+    });
+}
+
 module.exports = {
     insertar_usuario,
     obtener_usuario,
-    actualizar_usuario
+    actualizar_usuario,
+    eliminar_usuario 
 }

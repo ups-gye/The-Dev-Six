@@ -21,8 +21,14 @@ async function actualizar_usuario(id, dato) {
     return resultado;
 }
 
+async function eliminar_usuario(id) {
+    const resultado = await model.findByIdAndDelete(id);
+    return resultado;
+}
+
 module.exports = {
     insertar:insertar_usuario,
     obtener:obtener_usuario,
-    actualizar:actualizar_usuario
+    actualizar:actualizar_usuario,
+    eliminar: eliminar_usuario
 }
