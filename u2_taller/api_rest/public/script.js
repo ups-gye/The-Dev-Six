@@ -53,3 +53,34 @@ function actualizar_usuario() {
     .then(response => alert('Usuario actualizado exitosamente.'))
     .catch(error => alert('Error al actualizar el usuario.'));
 }
+
+
+
+function eliminar_usuario() {
+    const id = document.getElementById('id_eliminar').value;
+    console.log('Valor del ID:', id);
+    if (!id) {
+        alert('Por favor, ingresa un ID válido');
+        return;
+    }
+
+    
+    fetch(`/usuario/${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            alert(`Usuario con ID ${id} eliminado exitosamente`);
+        } else {
+            return response.json().then(data => {
+                alert(`Error al eliminar usuario: ${data.message}`);
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un error al eliminar el usuario');
+    });
+
+
+}
