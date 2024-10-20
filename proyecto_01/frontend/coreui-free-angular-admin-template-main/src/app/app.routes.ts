@@ -19,8 +19,8 @@ export const routes: Routes = [
         loadChildren: () => import('./views/dashboard/routes').then((m) => m.routes)
       },
       {
-        path: 'theme',
-        loadChildren: () => import('./views/theme/routes').then((m) => m.routes)
+        path: 'listar-productos',
+        loadChildren: () => import('./views/listar-productos/routes').then((m) => m.routes)
       },
       {
         path: 'base',
