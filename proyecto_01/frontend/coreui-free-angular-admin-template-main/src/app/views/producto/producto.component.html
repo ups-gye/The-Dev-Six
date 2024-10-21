@@ -1,1 +1,73 @@
-<p>producto works!</p>
+<c-col xs="12">
+  <c-card class="mb-4">
+    <c-card-header>
+      <strong>Nuevo Producto</strong>
+    </c-card-header>
+    <c-card-body>
+
+      <!--        <form #f="ngForm" (ngSubmit)="f.form.valid && crearCliente(f)">-->
+
+      <div class="row mb-4"> <!-- Espaciado general entre las columnas -->
+        <div class="col-sm-6">
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Codigo de Producto</label>
+            <div class="col-sm-6">
+              <input disabled ngModel name="codigoProducto" cFormControl type="text" class="form-control"/>
+            </div>
+          </c-row>
+
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Nombre de Producto</label>
+            <div class="col-sm-6">
+              <input ngModel name="nombreProducto" cFormControl type="text" class="form-control"/>
+            </div>
+          </c-row>
+
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Stock</label>
+            <div class="col-sm-6">
+              <input ngModel name="stock" cFormControl type="number" class="form-control"/>
+            </div>
+          </c-row>
+        </div>
+
+        <div class="col-sm-6">
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Precio Unitario</label>
+            <div class="col-sm-6">
+              <input ngModel name="precioUnitario" cFormControl type="number" step="0.01" min="0" class="form-control"/>
+            </div>
+          </c-row>
+
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Categoria</label>
+            <div class="col-sm-6">
+              <input ngModel name="categoria" cFormControl type="text" class="form-control"/>
+            </div>
+          </c-row>
+
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Proveedor</label>
+            <div class="col-sm-6">
+              <input ngModel name="proveedor" cFormControl type="text" class="form-control"/>
+            </div>
+          </c-row>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-sm-6">
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Subcategoria</label>
+            <div class="col-sm-6">
+              <input ngModel name="subcategoria" cFormControl type="text" class="form-control"/>
+            </div>
+          </c-row>
+        </div>
+      </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button cButton color="primary">Crear Producto</button>
+        </div>
+    </c-card-body>
+  </c-card>
+</c-col>

@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./listar-productos.component').then(m => m.ListarProductosComponent),
     data: {
-      title: $localize`Dashboard`
+      title: $localize`Listar Productos`
     }
   }
 ];

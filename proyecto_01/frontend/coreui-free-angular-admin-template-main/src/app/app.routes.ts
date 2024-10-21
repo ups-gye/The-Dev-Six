@@ -23,8 +23,8 @@ export const routes: Routes = [
         loadChildren: () => import('./views/listar-productos/routes').then((m) => m.routes)
       },
       {
-        path: 'base',
-        loadChildren: () => import('./views/base/routes').then((m) => m.routes)
+        path: 'product',
+        loadChildren: () => import('./views/producto/routes').then((m) => m.routes)
       },
       {
         path: 'buttons',

@@ -93,6 +93,7 @@ import {
   cilUser,
   cilUserFemale,
   cilUserFollow,
+  cilPlus,
   cilUserUnfollow
 } from '@coreui/icons';
 
@@ -108,6 +109,7 @@ export const iconSubset = {
   cibCcVisa,
   cibFacebook,
   cibGoogle,
+  cilPlus,
   cibLinkedin,
   cibSkype,
   cibTwitter,
@@ -211,6 +213,7 @@ export enum IconSubset {
   cibLinkedin = 'cibLinkedin',
   cibSkype = 'cibSkype',
   cibTwitter = 'cibTwitter',
+  cilPlus ='cilPlus',
   cifBr = 'cifBr',
   cifEs = 'cifEs',
   cifFr = 'cifFr',
