@@ -24,7 +24,7 @@ export class ListarProductosComponent {
 
   constructor(private productService:ProductService) {}
 ngOnInit(): void {
-   
+
     const query = {
       query: `
         {
