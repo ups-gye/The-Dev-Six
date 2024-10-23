@@ -17,13 +17,15 @@
     </tr>
     </thead>
     <tbody>
-<!--      <tr *ngFor="let cliente of clientes; let i = index">-->
-<!--        <td>{{ cliente.nombre }}</td>-->
-<!--        <td>{{ cliente.cedula }}</td>-->
-<!--        <td>{{ cliente.telefono }}</td>-->
-<!--        <td>{{ cliente.direccion }}</td>-->
-
-<!--    </tr>-->
+      <tr *ngFor="let producto of productos; let i = index">
+        <td>{{ producto.codigoProducto }}</td>
+        <td>{{ producto.nombreProducto }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>{{ producto.precioUnitario }}</td>
+        <td>{{ producto.categoria }}</td>
+        <td>{{ producto.subcategoria }}</td>
+        <td>{{ producto.proveedor }}</td>
+    </tr>
     </tbody>
   </table>
 

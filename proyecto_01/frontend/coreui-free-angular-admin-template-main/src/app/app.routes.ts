@@ -1,5 +1,6 @@
-import { Routes } from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
+import {NgModule} from "@angular/core";
 
 export const routes: Routes = [
   {
@@ -86,3 +87,17 @@ export const routes: Routes = [
   },
   { path: '**', redirectTo: 'dashboard' }
 ];
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'top',
+      anchorScrolling: 'enabled',
+      initialNavigation: 'enabledBlocking'
+      // relativeLinkResolution: 'legacy'
+    })
+  ],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {
+}

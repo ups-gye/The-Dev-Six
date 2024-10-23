@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "23affbbf-fde3-400c-b1b6-e20377d28eca",
+		"name": "Patrones de Diseño de APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17709986"
+	},
+	"item": [
+		{
+			"name": "Proyecto",
+			"item": [
+				{
+					"name": "Añadir un nuevo producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"mutation { addProduct(product: { codigoProducto: \\\"P005\\\", nombreProducto: \\\"Papas\\\", stock: 50, precioUnitario: 30.00, categoria: \\\"Categoría 1\\\", subcategoria: \\\"Subcategoría 1\\\", proveedor: \\\"Proveedor C\\\" }) { codigoProducto, nombreProducto, stock, precioUnitario } }\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los Productos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"{ allProducts { codigoProducto, nombreProducto, stock, precioUnitario, categoria, subcategoria, proveedor } }\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"mutation { deleteProduct(productId: \\\"P005\\\") }\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Producto Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"mutation { updateProduct(productId: \\\"P005\\\", product: { codigoProducto: \\\"P005\\\", nombreProducto: \\\"Producto E Actualizado\\\", stock: 40, precioUnitario: 35.00, categoria: \\\"Categoría 1\\\", subcategoria: \\\"Subcategoría 2\\\", proveedor: \\\"Proveedor C\\\" }) { codigoProducto, nombreProducto, stock, precioUnitario } }\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

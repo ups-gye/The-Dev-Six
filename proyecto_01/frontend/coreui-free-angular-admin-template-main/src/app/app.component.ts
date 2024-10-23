@@ -25,7 +25,11 @@ export class AppComponent implements OnInit {
   readonly #colorModeService = inject(ColorModeService);
   readonly #iconSetService = inject(IconSetService);
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private titleService: Title,
+    private iconSetService: IconSetService
+  ) {
     this.#titleService.setTitle(this.title);
     // iconSet singleton
     this.#iconSetService.icons = { ...iconSubset };

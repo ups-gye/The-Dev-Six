@@ -13,7 +13,7 @@ export class ProductService {
     this.url=environment.url
  }
 
- getProducts():Observable<any> {
-  return this.http.get(`${this.url}/products`); // TODO FIX THIS ACCORD TO BACKEND
+  getProducts(body: any): Observable<any> {
+    return this.http.post(this.url, body);
  }
 }

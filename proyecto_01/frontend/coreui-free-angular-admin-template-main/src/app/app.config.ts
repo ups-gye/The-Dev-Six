@@ -1,5 +1,6 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http'; // Importa HttpClientModule
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
@@ -27,7 +28,7 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withHashLocation()
     ),
-    importProvidersFrom(SidebarModule, DropdownModule),
+    importProvidersFrom(SidebarModule, DropdownModule, HttpClientModule), // Añade HttpClientModule aquí
     IconSetService,
     provideAnimations()
   ]
