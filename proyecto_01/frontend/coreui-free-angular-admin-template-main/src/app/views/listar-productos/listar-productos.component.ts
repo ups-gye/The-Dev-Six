@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
-import {CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, TableDirective} from "@coreui/angular";
+import {
+  CardBodyComponent,
+  CardComponent,
+  CardHeaderComponent,
+  ColComponent,
+  TableColorDirective,
+  TableDirective
+} from "@coreui/angular";
 import {Product} from "../../models/Product";
 import {ProductService} from "../../services/product.service";
 import { CommonModule } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http'; // Importa el proveedor HttpClient
-
 @Component({
   selector: 'app-listar-productos',
   standalone: true,
@@ -14,7 +19,8 @@ import { provideHttpClient } from '@angular/common/http'; // Importa el proveedo
     CardHeaderComponent,
     CardBodyComponent,
     TableDirective,
-    CommonModule
+    CommonModule,
+    TableColorDirective
   ],
   templateUrl: './listar-productos.component.html',
   styleUrl: './listar-productos.component.scss'
