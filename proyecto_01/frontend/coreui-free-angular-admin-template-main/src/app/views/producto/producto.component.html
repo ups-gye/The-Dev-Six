@@ -1,7 +1,7 @@
 <c-col xs="12">
   <c-card class="mb-4">
-    <c-card-header>
-      <strong>Nuevo Producto</strong>
+    <c-card-header style="background-color: 	#5856d6">
+      <strong style="color: white;">Nuevo Producto</strong>
     </c-card-header>
     <c-card-body>
       <form #f="ngForm" (ngSubmit)="f.form.valid && createProduct(f)">
@@ -90,8 +90,8 @@
             </c-row>
           </div>
         </div>
-        <div class="d-grid gap-2 col-6 mx-auto">
-          <button cButton color="primary" type="submit">Crear Producto</button>
+        <div class="d-grid gap-2 col-3 mx-auto">
+          <button cButton color="success" type="submit">Crear Producto</button>
         </div>
       </form>
 

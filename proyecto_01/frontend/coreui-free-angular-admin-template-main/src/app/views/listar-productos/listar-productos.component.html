@@ -4,31 +4,44 @@
       <strong style="color: white;">Listado de Productos</strong>
     </c-card-header>
     <c-card-body>
-<table [striped]="true" cTable >
-    <thead>
-    <tr>
-      <th scope="col">Codigo</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Stock</th>
-      <th scope="col">Precio Unitario</th>
-      <th scope="col">Categoria</th>
-      <th scope="col">Subcategoria</th>
-      <th scope="col">Proveedor</th>
-    </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let producto of productos; let i = index">
-        <td>{{ producto.codigoProducto }}</td>
-        <td>{{ producto.nombreProducto }}</td>
-        <td>{{ producto.stock }}</td>
-        <td>{{ producto.precioUnitario }}</td>
-        <td>{{ producto.categoria }}</td>
-        <td>{{ producto.subcategoria }}</td>
-        <td>{{ producto.proveedor }}</td>
-    </tr>
-    </tbody>
-  </table>
+      <table [striped]="true" cTable>
+        <thead>
+        <tr>
+          <th scope="col" style="text-align: center">Codigo</th>
+          <th scope="col" style="text-align: center">Nombre</th>
+          <th scope="col" style="text-align: center">Stock</th>
+          <th scope="col" style="text-align: center">Precio Unitario</th>
+          <th scope="col" style="text-align: center">Categoria</th>
+          <th scope="col" style="text-align: center">Subcategoria</th>
+          <th scope="col" style="text-align: center">Proveedor</th>
+          <th scope="col" style="text-align: center">Accion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let producto of productos; let i = index">
+          <td style="text-align: center">{{ producto.codigoProducto }}</td>
+          <td style="text-align: center">{{ producto.nombreProducto }}</td>
+          <td style="text-align: center">{{ producto.stock }}</td>
+          <td style="text-align: center">{{ producto.precioUnitario }}</td>
+          <td style="text-align: center">{{ producto.categoria }}</td>
+          <td style="text-align: center">{{ producto.subcategoria }}</td>
+          <td style="text-align: center">{{ producto.proveedor }}</td>
+          <td>
+              <div style="display: flex; gap: 0.5rem;">
+
+            <button cButton color="info" title="Actualizar" style="width: 50%;">
+              <svg [cIcon]="icons.cilPencil"></svg>
+            </button>
+            <button cButton color="danger" title="Eliminar"  style="width: 50%;">
+              <svg [cIcon]="icons.cilTrash"></svg>
+            </button>
+                  </div>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
 
     </c-card-body>
-  </c-card >
+  </c-card>
 </c-col>

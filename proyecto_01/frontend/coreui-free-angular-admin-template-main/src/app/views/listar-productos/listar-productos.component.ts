@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {
+  ButtonDirective,
   CardBodyComponent,
   CardComponent,
   CardHeaderComponent,
@@ -10,6 +11,8 @@ import {
 import {Product} from "../../models/Product";
 import {ProductService} from "../../services/product.service";
 import { CommonModule } from '@angular/common';
+import { freeSet } from '@coreui/icons'; // Importar solo el conjunto de iconos gratuitos
+import {IconComponent, IconDirective, IconSetService,IconModule} from '@coreui/icons-angular';
 @Component({
   selector: 'app-listar-productos',
   standalone: true,
@@ -20,15 +23,21 @@ import { CommonModule } from '@angular/common';
     CardBodyComponent,
     TableDirective,
     CommonModule,
-    TableColorDirective
+    TableColorDirective,
+    IconDirective,
+    ButtonDirective,
+    IconComponent,
+    IconModule
   ],
   templateUrl: './listar-productos.component.html',
-  styleUrl: './listar-productos.component.scss'
+  styleUrl: './listar-productos.component.scss',
+  providers: [IconSetService]
 })
 export class ListarProductosComponent {
   productos: Product[]=[];
-
-  constructor(private productService:ProductService) {}
+  icons = { ...freeSet };
+  constructor(private productService:ProductService, ) {
+  }
 ngOnInit(): void {
 
     const query = {

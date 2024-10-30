@@ -18,7 +18,6 @@ import {Product} from "../../models/Product";
 import {ProductService} from "../../services/product.service";
 import {FormsModule, NgForm} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-
 @Component({
   selector: 'app-producto',
   standalone: true,
