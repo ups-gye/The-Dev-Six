@@ -2,12 +2,16 @@ package ec.edu.ups.est.database.service;
 
 import ec.edu.ups.est.database.entity.Product;
 import ec.edu.ups.est.database.repository.ProductRepository;
+import ec.edu.ups.est.model.FrameOutResponse;
 import ec.edu.ups.est.websocket.service.InventoryNotificationService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ApplicationScoped
 public class ProductService {
@@ -77,11 +81,41 @@ public class ProductService {
         return productRepository.listAll();
     }
 
-    public List<Product> listarPorCategoria(String categoria) {
-        return productRepository.find("categoria", categoria).list();
+
+    public FrameOutResponse findAdvanced(String productName, BigDecimal minPrice, BigDecimal maxPrice, String category, String subcategory) {
+
+        FrameOutResponse frameOutResponse = new FrameOutResponse();
+
+        StringBuilder query = new StringBuilder("1=1");
+        Map<String, Object> params = new HashMap<>();
+
+        if (productName != null && !productName.isEmpty()) {
+            query.append(" AND LOWER(nombreProducto) LIKE LOWER(:nombreProducto)");
+            params.put("nombreProducto", "%" + productName + "%");
+        }
+        if (minPrice != null) {
+            query.append(" AND precioUnitario >= :minPrecioUnitario");
+            params.put("minPrecioUnitario", minPrice);
+        }
+        if (maxPrice != null) {
+            query.append(" AND precioUnitario <= :maxPrecioUnitario");
+            params.put("maxPrecioUnitario", maxPrice);
+        }
+        if (category != null && !category.isEmpty()) {
+            query.append(" AND LOWER(categoria) = LOWER(:categoria)");
+            params.put("categoria", category);
+        }
+        if (subcategory != null && !subcategory.isEmpty()) {
+            query.append(" AND LOWER(subcategoria) = LOWER(:subcategoria)");
+            params.put("subcategoria", subcategory);
+        }
+
+        frameOutResponse.setCode("00");
+        frameOutResponse.setMessage("OK");
+        frameOutResponse.setFrame(productRepository.find(String.valueOf(query), params).list());
+
+        return frameOutResponse;
     }
 
-    public List<Product> listarPorSubcategoria(String subcategoria) {
-        return productRepository.find("subcategoria", subcategoria).list();
-    }
+
 }
