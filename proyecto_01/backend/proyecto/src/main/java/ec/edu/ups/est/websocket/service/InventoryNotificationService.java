@@ -1,6 +1,6 @@
 package ec.edu.ups.est.websocket.service;
 
-import ec.edu.ups.est.database.entity.Product;
+import ec.edu.ups.est.database.entity.*;
 import ec.edu.ups.est.websocket.socket.NotificationSocket;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -10,6 +10,21 @@ public class InventoryNotificationService {
 
     @Inject
     NotificationSocket chatSocket;
+
+    public void notifyUserAdded(User user) {
+        String message = "Usuario agregado: " + user.getNombre();
+        chatSocket.broadcastNotification(message);
+    }
+
+    public void notifyLoginOK() {
+        String message = "Login correcto";
+        chatSocket.broadcastNotification(message);
+    }
+
+    public void notifyLoginERROR() {
+        String message = "Login incorrecto";
+        chatSocket.broadcastNotification(message);
+    }
 
     public void notifyProductAdded(Product product) {
         String message = "Producto agregado al inventario: " + product.getNombreProducto();
