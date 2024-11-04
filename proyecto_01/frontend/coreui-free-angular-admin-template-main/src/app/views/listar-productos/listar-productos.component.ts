@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   ButtonCloseDirective,
   ButtonDirective,
@@ -21,6 +21,8 @@ import {CommonModule} from '@angular/common';
 import {freeSet} from '@coreui/icons'; // Importar solo el conjunto de iconos gratuitos
 import {IconComponent, IconDirective, IconSetService, IconModule} from '@coreui/icons-angular';
 import {FormsModule, NgForm} from "@angular/forms";
+import {Subscription} from "rxjs";
+import {WebSocketService} from "../web-socket.service";
 
 @Component({
   selector: 'app-listar-productos',
@@ -53,7 +55,7 @@ import {FormsModule, NgForm} from "@angular/forms";
   styleUrl: './listar-productos.component.scss',
   providers: [IconSetService]
 })
-export class ListarProductosComponent {
+export class ListarProductosComponent  implements  OnInit{
   productos: Product[] = [];
   icons = {...freeSet};
   selectedProduct: any = {};
@@ -61,16 +63,20 @@ export class ListarProductosComponent {
   modalMessage = '';
   modalVisible = false;
   confirmDeleteModalVisible = false; // Controla la visibilidad del modal de confirmación de eliminación
+  private messagesSubscription?: Subscription;
+  updateVisibleModal=false;
 
-
-  constructor(private productService: ProductService,) {
-    this.getProducts();
-
+  constructor(private productService: ProductService, private webSocketService: WebSocketService) {
   }
 
   ngOnInit(): void {
-  this.getProducts();
-    this.modalVisible = false;
+    this.getProducts();
+    this.listenToWebSocket();
+
+  }
+
+  ngOnDestroy(): void {
+    this.messagesSubscription?.unsubscribe();
   }
 
   getProducts() {
@@ -112,57 +118,54 @@ export class ListarProductosComponent {
 
   confirmDeleteProduct() {
     const productId = this.selectedProductForDeletion.codigoProducto;
-    this.productService.deleteProduct(productId).subscribe(response => {
-      console.log('Producto eliminado:', response);
-
-      // Actualizar la lista de productos después de la eliminación
+    this.productService.deleteProduct(productId).subscribe(() => {
+      console.log('Producto eliminado');
       this.getProducts();
-
-      // Cerrar el modal de confirmación y mostrar un mensaje de éxito
       this.confirmDeleteModalVisible = false;
-      this.modalMessage = 'Producto eliminado exitosamente';
-      this.modalVisible = true;
-
     }, error => {
       console.error('Error al eliminar el producto:', error);
-      this.modalMessage = 'Error al eliminar el producto';
-      this.modalVisible = true;
     });
   }
+
   updateProduct(form: any) {
     if (form.valid) {
-      this.productService.updateProduct(this.selectedProduct).subscribe(response => {
-        console.log('Producto actualizado:', response);
+      this.productService.updateProduct(this.selectedProduct).subscribe(() => {
+        console.log('Producto actualizado');
         this.getProducts();
-
-        document.getElementById('closeEditModalButton')?.click();
-
-        this.modalMessage = 'Producto actualizado exitosamente';
-        this.modalVisible = true;
+        this.updateVisibleModal=false;
 
         form.resetForm();
         this.selectedProduct = {}; // Limpia el producto seleccionado
-
-
-
       }, error => {
         console.error('Error al actualizar el producto:', error);
-        this.modalMessage = 'Error al actualizar el producto';
-        this.modalVisible = true;
       });
-    }
-    else {
-      this.modalMessage = "Ocurrió un error al actualizar el producto. Por favor, intenta nuevamente.";
-      this.modalVisible = true;
     }
   }
 
   setSelectedProduct(product: any) {
-    this.selectedProduct = { ...product };
-
+    this.selectedProduct = {...product};
+    this.updateVisibleModal=true;
   }
+
   closeModal() {
     this.modalVisible = false;
   }
 
+
+  private listenToWebSocket() {
+    this.messagesSubscription = this.webSocketService.getMessages().subscribe(
+      (message) => {
+        console.log('Mensaje recibido desde el WebSocket:', message);
+        this.showModalWithMessage(message);
+      },
+      (error) => {
+        console.error('Error al recibir mensajes del WebSocket:', error);
+      }
+    );
+  }
+
+  private showModalWithMessage(message: string) {
+    this.modalMessage = message;
+    this.modalVisible = true;
+  }
 }

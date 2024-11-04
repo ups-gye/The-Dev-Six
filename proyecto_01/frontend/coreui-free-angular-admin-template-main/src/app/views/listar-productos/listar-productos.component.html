@@ -48,7 +48,7 @@
 </c-col>
 
 
-<c-modal #staticBackdropModal  backdrop="static" size="lg"  >
+<c-modal  [(visible)]="updateVisibleModal" #staticBackdropModal  backdrop="static" size="lg"  >
   <c-modal-header>
     <h5 cModalTitle>Actualizar Producto</h5>
     <button cButtonClose [cModalToggle]="staticBackdropModal.id" ></button>

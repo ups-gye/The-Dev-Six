@@ -94,7 +94,7 @@ import {
   cilUserFemale,
   cilUserFollow,
   cilPlus,
-  cilUserUnfollow
+  cilUserUnfollow, cilSearch
 } from '@coreui/icons';
 
 import { signet } from './signet';
@@ -107,6 +107,7 @@ export const iconSubset = {
   cibCcPaypal,
   cibCcStripe,
   cibCcVisa,
+  cilSearch,
   cibFacebook,
   cibGoogle,
   cilPlus,

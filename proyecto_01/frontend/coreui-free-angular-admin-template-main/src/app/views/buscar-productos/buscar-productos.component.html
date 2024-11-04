@@ -1,0 +1,65 @@
+<c-col xs="12">
+  <c-card class="mb-3">
+    <c-card-header style="background-color: 	#5856d6">
+      <strong style="color: white;">Busqueda de Productos</strong>
+    </c-card-header>
+    <c-card-body>
+      <!-- Formulario de búsqueda -->
+      <form (ngSubmit)="buscarProductos()" #form="ngForm" class="mb-4">
+        <div class="row mb-3">
+          <div class="col-sm-6 col-md-3">
+            <label cLabel>Nombre del Producto</label>
+            <input [(ngModel)]="filtros.productName" name="productName" class="form-control" placeholder="Nombre del producto" />
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <label cLabel>Precio Mínimo</label>
+            <input [(ngModel)]="filtros.minPrice" name="minPrice" type="number" class="form-control" placeholder="Precio mínimo" />
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <label cLabel>Precio Máximo</label>
+            <input [(ngModel)]="filtros.maxPrice" name="maxPrice" type="number" class="form-control" placeholder="Precio máximo" />
+          </div>
+          <div class="col-sm-6 col-md-3">
+            <label cLabel>Categoría</label>
+            <input [(ngModel)]="filtros.category" name="category" class="form-control" placeholder="Categoría" />
+          </div>
+          <div class="col-sm-6 col-md-3 mt-3">
+            <label cLabel>Subcategoría</label>
+            <input [(ngModel)]="filtros.subcategory" name="subcategory" class="form-control" placeholder="Subcategoría" />
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3">
+          <button cButton color="info" type="submit">Buscar</button>
+          <button cButton color="secondary" type="button" (click)="limpiarFiltros()" class="ms-2">Limpiar</button>
+        </div>
+      </form>
+
+      <table [striped]="true" cTable>
+        <thead>
+        <tr>
+          <th scope="col" style="text-align: center">Codigo</th>
+          <th scope="col" style="text-align: center">Nombre</th>
+          <th scope="col" style="text-align: center">Stock</th>
+          <th scope="col" style="text-align: center">Precio Unitario</th>
+          <th scope="col" style="text-align: center">Categoria</th>
+          <th scope="col" style="text-align: center">Subcategoria</th>
+          <th scope="col" style="text-align: center">Proveedor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let producto of productos; let i = index">
+          <td style="text-align: center">{{ producto.codigoProducto }}</td>
+          <td style="text-align: center">{{ producto.nombreProducto }}</td>
+          <td style="text-align: center">{{ producto.stock }}</td>
+          <td style="text-align: center">{{ producto.precioUnitario }}</td>
+          <td style="text-align: center">{{ producto.categoria }}</td>
+          <td style="text-align: center">{{ producto.subcategoria }}</td>
+          <td style="text-align: center">{{ producto.proveedor }}</td>
+        </tr>
+        </tbody>
+      </table>
+
+    </c-card-body>
+  </c-card>
+</c-col>

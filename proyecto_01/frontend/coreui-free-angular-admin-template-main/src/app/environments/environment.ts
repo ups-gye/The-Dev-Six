@@ -1,7 +1,8 @@
 export const environment = {
     production: false,
 
-    url: 'http://localhost:8080/graphql',
+    url_graphql: 'http://localhost:8080/graphql',
+    url_rest: 'http://localhost:8080/products/search',
 
   };
 

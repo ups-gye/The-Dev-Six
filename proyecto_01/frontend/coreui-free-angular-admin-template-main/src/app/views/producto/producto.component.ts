@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   ButtonDirective,
   CardBodyComponent,
@@ -18,6 +18,8 @@ import {Product} from "../../models/Product";
 import {ProductService} from "../../services/product.service";
 import {FormsModule, NgForm} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {WebSocketService} from "../web-socket.service";
+import {Subscription} from "rxjs";
 @Component({
   selector: 'app-producto',
   standalone: true,
@@ -42,14 +44,19 @@ import {CommonModule} from "@angular/common";
   templateUrl: './producto.component.html',
   styleUrl: './producto.component.scss'
 })
-export class ProductoComponent {
+export class ProductoComponent implements OnInit {
   producto: Product = {} as Product; // Asegúrate de que `Product` esté correctamente importado
   public visible = false;
   public modalVisible = false;
   public modalMessage = '';
+  private messagesSubscription: Subscription | undefined;
 
-  constructor(private productService: ProductService) {
+  ngOnInit(): void {
+    this.listenToWebSocket();
+
   }
+
+  constructor(private productService: ProductService, private webSocketService:WebSocketService) {}
 
   createProduct(form: NgForm) {
     if (form.valid) { // Verifica que el formulario sea válido antes de continuar
@@ -65,13 +72,15 @@ export class ProductoComponent {
 
       this.productService.createProduct(this.producto).subscribe(
         (data) => {
-          this.modalMessage = "Producto creado exitosamente.";
-          this.modalVisible = true
+          console.log("Producto creado exitosamente.");
+
         },
         (error) => {
           console.error("Error al crear el producto:", error);
           this.modalMessage = "Ocurrió un error al crear el producto. Por favor, intenta nuevamente.";
           this.modalVisible = true; // Muestra el modal de error
+          this.webSocketService.sendMessage("Error al crear el producto:" + error);
+
         }
       );
     } else {
@@ -82,5 +91,21 @@ export class ProductoComponent {
 
   closeModal() {
     this.modalVisible = false;
+  }
+
+  private listenToWebSocket() {
+    // Escuchar solo si no está suscrito previamente
+    if (!this.messagesSubscription) {
+      this.messagesSubscription = this.webSocketService.getMessages().subscribe(
+        (message) => {
+          console.log('Mensaje recibido desde el WebSocket:', message);
+          this.modalMessage = message;
+          this.modalVisible = true;
+        },
+        (error) => {
+          console.error('Error al recibir mensajes del WebSocket:', error);
+        }
+      );
+    }
   }
 }

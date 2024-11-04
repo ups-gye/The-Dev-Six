@@ -19,11 +19,11 @@ public class NotificationSocket {
         System.out.println("WebSocket abierto: " + session.getId());
     }
 
-    /*@OnMessage
+    @OnMessage
     public void onMessage(String message, Session session) {
         System.out.println("Mensaje recibido: " + message);
         session.getAsyncRemote().sendText("Servidor: " + message);
-    }*/
+    }
 
     @OnClose
     public void onClose(Session session) {

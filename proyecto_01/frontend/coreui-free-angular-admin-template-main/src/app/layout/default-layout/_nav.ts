@@ -6,13 +6,18 @@ export const navItems: INavData[] = [
     name: 'Inventario'
   },
   {
+    name: 'Crear Productos',
+    url: '/product',
+    iconComponent: { name: 'cilPlus' }
+  },
+  {
     name: 'Listado de Productos',
     url: '/listar-productos',
     iconComponent: { name: 'cil-list' }
   },
   {
-    name: 'Crear Productos',
-    url: '/product',
-    iconComponent: { name: 'cilPlus' }
+    name: 'Buscar Productos',
+    url: '/buscar-productos',
+    iconComponent: { name: 'cil-search' }
   }
 ];

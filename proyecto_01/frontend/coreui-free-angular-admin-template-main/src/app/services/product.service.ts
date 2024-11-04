@@ -1,20 +1,25 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {Observable} from "rxjs";
+import {Product} from "../models/Product";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private url: string;
+  private url_graphql : string;
+  private url_rest: string;
 
   constructor(private http: HttpClient) {
-    this.url = environment.url
+    this.url_graphql = environment.url_graphql
+    this.url_rest = environment.url_rest
+
   }
 
   getProducts(body: any): Observable<any> {
-    return this.http.post(this.url, body);
+    return this.http.post(this.url_graphql, body);
   }
 
   createProduct(product: any) {
@@ -40,7 +45,7 @@ export class ProductService {
     }`
     };
     console.log(body);
-    return this.http.post(this.url, body);
+    return this.http.post(this.url_graphql, body);
   }
 
   updateProduct(product: any) {
@@ -66,7 +71,7 @@ export class ProductService {
     }`
     };
     console.log(body);
-    return this.http.post(this.url, body);
+    return this.http.post(this.url_graphql, body);
   }
 
   deleteProduct(productId: string) {
@@ -75,8 +80,20 @@ export class ProductService {
       deleteProduct(productId: "${productId}")
     }`
     };
-    return this.http.post(this.url, body);
+    return this.http.post(this.url_graphql, body);
   }
 
+  buscarProductos(filtros: any): Observable<Product[]> {
+    let params = new HttpParams();
+    if (filtros.productName) params = params.set('productName', filtros.productName);
+    if (filtros.minPrice) params = params.set('minPrice', filtros.minPrice);
+    if (filtros.maxPrice) params = params.set('maxPrice', filtros.maxPrice);
+    if (filtros.category) params = params.set('category', filtros.category);
+    if (filtros.subcategory) params = params.set('subcategory', filtros.subcategory);
+
+    return this.http.get<any>(this.url_rest, { params }).pipe(
+      map(response => response.frame || []) // Extrae el array de productos desde `frame`
+    );
+  }
 
 }

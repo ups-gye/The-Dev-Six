@@ -28,6 +28,11 @@ export const routes: Routes = [
         loadChildren: () => import('./views/producto/routes').then((m) => m.routes)
       },
       {
+        path: 'buscar-productos',
+        loadChildren: () => import('./views/buscar-productos/routes').then((m) => m.routes)
+      },
+
+      {
         path: 'buttons',
         loadChildren: () => import('./views/buttons/routes').then((m) => m.routes)
       },
@@ -38,10 +43,6 @@ export const routes: Routes = [
       {
         path: 'icons',
         loadChildren: () => import('./views/icons/routes').then((m) => m.routes)
-      },
-      {
-        path: 'notifications',
-        loadChildren: () => import('./views/notifications/routes').then((m) => m.routes)
       },
       {
         path: 'widgets',
