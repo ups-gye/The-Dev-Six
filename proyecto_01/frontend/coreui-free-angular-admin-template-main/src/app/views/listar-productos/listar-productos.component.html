@@ -27,15 +27,16 @@
           <td style="text-align: center">{{ producto.subcategoria }}</td>
           <td style="text-align: center">{{ producto.proveedor }}</td>
           <td>
-              <div style="display: flex; gap: 0.5rem;">
+            <div style="display: flex; gap: 0.5rem;">
 
-            <button cButton color="info" title="Actualizar" style="width: 50%;">
-              <svg [cIcon]="icons.cilPencil"></svg>
-            </button>
-            <button cButton color="danger" title="Eliminar"  style="width: 50%;">
-              <svg [cIcon]="icons.cilTrash"></svg>
-            </button>
-                  </div>
+              <button [cModalToggle]="staticBackdropModal.id" cButton color="info" type="button" title="Actualizar"
+                      style="width: 50%;" (click)="setSelectedProduct(producto)">
+                <svg [cIcon]="icons.cilPencil"></svg>
+              </button>
+              <button cButton color="danger" title="Eliminar" style="width: 50%;" (click)="openDeleteModal(producto)">
+                <svg [cIcon]="icons.cilTrash"></svg>
+              </button>
+            </div>
 
           </td>
         </tr>
@@ -45,3 +46,150 @@
     </c-card-body>
   </c-card>
 </c-col>
+
+
+<c-modal #staticBackdropModal  backdrop="static" size="lg"  >
+  <c-modal-header>
+    <h5 cModalTitle>Actualizar Producto</h5>
+    <button cButtonClose [cModalToggle]="staticBackdropModal.id" ></button>
+  </c-modal-header>
+  <c-modal-body>
+    <form #f="ngForm" (ngSubmit)="f.form.valid && updateProduct(f)">
+      <div class="row mb-4">
+        <div class="col-sm-6">
+          <c-row class="mb-3">
+            <label cLabel class="col-sm-6 col-form-label">Codigo de Producto</label>
+            <div class="col-sm-6">
+              <input
+                [(ngModel)]="selectedProduct.codigoProducto"
+                disabled
+                name="codigoProducto"
+                cFormControl
+                type="text"
+                required
+                class="form-control"
+              />
+              <div *ngIf="f.submitted && f.controls['codigoProducto']?.invalid" class="text-danger">
+                Este campo es obligatorio.
+              </div>
+            </div>
+          </c-row>
+
+          <c-row class="mb-3">
+            <label cLabel class="col-sm-6 col-form-label">Nombre de Producto</label>
+            <div class="col-sm-6">
+              <input
+                [(ngModel)]="selectedProduct.nombreProducto"
+                name="nombreProducto"
+                cFormControl
+                type="text"
+                required
+                class="form-control"
+              />
+              <div *ngIf="f.submitted && f.controls['nombreProducto']?.invalid" class="text-danger">
+                Este campo es obligatorio.
+              </div>
+            </div>
+          </c-row>
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Stock</label>
+            <div class="col-sm-6">
+              <input
+                [(ngModel)]="selectedProduct.stock"
+                name="stock"
+                cFormControl type="number" required class="form-control"/>
+              <div *ngIf="f.submitted && f.controls['stock']?.invalid" class="text-danger">
+                Este campo es obligatorio.
+              </div>
+            </div>
+          </c-row>
+        </div>
+        <div class="col-sm-6">
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Precio Unitario</label>
+            <div class="col-sm-6">
+              <input
+                [(ngModel)]="selectedProduct.precioUnitario"
+                name="precioUnitario"
+                cFormControl
+                type="number" required step="0.01" min="0"
+                class="form-control"/>
+              <div *ngIf="f.submitted && f.controls['precioUnitario']?.invalid" class="text-danger">
+                Este campo es obligatorio.
+              </div>
+            </div>
+          </c-row>
+
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Categoria</label>
+            <div class="col-sm-6">
+              <input
+                [(ngModel)]="selectedProduct.categoria"
+                name="categoria"
+                cFormControl required type="text" class="form-control"/>
+              <div *ngIf="f.submitted && f.controls['categoria']?.invalid" class="text-danger">
+                Este campo es obligatorio.
+              </div>
+            </div>
+          </c-row>
+
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Proveedor</label>
+            <div class="col-sm-6">
+              <input
+                [(ngModel)]="selectedProduct.proveedor"
+                name="proveedor" cFormControl required type="text" class="form-control"/>
+              <div *ngIf="f.submitted && f.controls['subcategoria']?.invalid" class="text-danger">
+                Este campo es obligatorio.
+              </div>
+            </div>
+          </c-row>
+        </div>
+
+      </div>
+      <div class="row mb-3">
+        <div class="col-sm-6">
+          <c-row class="mb-3"> <!-- Espaciado entre cada fila -->
+            <label cLabel class="col-sm-6 col-form-label">Subcategoria</label>
+            <div class="col-sm-6">
+              <input  [(ngModel)]="selectedProduct.subcategoria" name="subcategoria" cFormControl required type="text" class="form-control"/>
+              <div *ngIf="f.submitted && f.controls['proveedor']?.invalid" class="text-danger">
+                Este campo es obligatorio.
+              </div>
+            </div>
+          </c-row>
+        </div>
+      </div>
+    </form>
+
+  </c-modal-body>
+  <c-modal-footer>
+    <button [cModalToggle]="staticBackdropModal.id" cButton color="danger"  id="closeEditModalButton" >
+      Cerrar
+    </button>
+    <button cButton color="info" (click)="updateProduct(f)">Actualizar</button>
+  </c-modal-footer>
+</c-modal>
+<c-modal id="modalDelete" [(visible)]="confirmDeleteModalVisible" backdrop="static" keyboard="false">
+  <c-modal-header>
+    <h5 cModalTitle>Confirmar Eliminación</h5>
+  </c-modal-header>
+  <c-modal-body>
+    ¿Estás seguro de que deseas eliminar el producto {{ selectedProductForDeletion.nombreProducto }}?
+  </c-modal-body>
+  <c-modal-footer>
+    <button cButton color="secondary" (click)="confirmDeleteModalVisible = false">Cancelar</button>
+    <button cButton color="danger" (click)="confirmDeleteProduct()">Eliminar</button>
+  </c-modal-footer>
+</c-modal>
+<c-modal id="modalInfo" [(visible)]="modalVisible" backdrop="static" keyboard="false">
+  <c-modal-header>
+    <h5 cModalTitle>Información</h5>
+  </c-modal-header>
+  <c-modal-body>
+    {{ modalMessage }}
+  </c-modal-body>
+  <c-modal-footer>
+    <button cButton color="primary" (click)="closeModal()">Cerrar</button>
+  </c-modal-footer>
+</c-modal>
