@@ -15,4 +15,5 @@ public class FrameOutResponse {
     private String code;
     private String message;
     private Object frame;
+    private String token;
 }

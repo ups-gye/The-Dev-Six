@@ -11,20 +11,6 @@ public class InventoryNotificationService {
     @Inject
     NotificationSocket chatSocket;
 
-    public void notifyUserAdded(User user) {
-        String message = "Usuario agregado: " + user.getNombre();
-        chatSocket.broadcastNotification(message);
-    }
-
-    public void notifyLoginOK() {
-        String message = "Login correcto";
-        chatSocket.broadcastNotification(message);
-    }
-
-    public void notifyLoginERROR() {
-        String message = "Login incorrecto";
-        chatSocket.broadcastNotification(message);
-    }
 
     public void notifyProductAdded(Product product) {
         String message = "Producto agregado al inventario: " + product.getNombreProducto();

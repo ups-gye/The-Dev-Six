@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "04e9b342-3bc1-4f19-9998-f0d07d69b502",
+		"name": "Patrones de Diseño de  APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Proyecto",
+			"item": [
+				{
+					"name": "Añadir un nuevo producto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tL2lzc3VlciIsInVwbiI6Impkb2VAcXVhcmt1cy5pbyIsImdyb3VwcyI6WyJhZG1pbiJdLCJiaXJ0aGRhdGUiOiIyMDAxLTA3LTEzIiwiaWF0IjoxNzMwODM0NjUwLCJleHAiOjE3MzA4MzQ5NTAsImp0aSI6ImIyMWEzMGFlLTQ0NDYtNGQxYi1hODFhLTkyNGUyNWU5YmRlNSJ9.UcT9uJubxKqCZqTNYR35LI4EpgbZy9uXyRlY33B8MUmQlk2ma1v3BVuIlWKaWlUeU74O3i_jjDJI7tRMJX_Yws4_a9KV2w4-lvDRrZphxaAbUGdLD9Je_DQt1_vheOm-TMKFJFzfw9OuG1xMIFKNgIWUQ1Dlqt4Xuv7vru8UueDHBVmElamVlTPK3o0KGKrpZ-q576ZYIGoU5YwMqvKVKtk3Vbpi8UVwhW0IKJWE33nXphSoFNjcVMVNEpoWuTC0-6DGIbgkcMAZaQQZ3tAMLBvsKiEDskBtLpuE676qbRT9Bf6aSACxBJBJ7qFl6zK04KZ-Cpy3GV-Iud1RX87RtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"mutation { addProduct(product: { codigoProducto: \\\"P099\\\", nombreProducto: \\\"Papas\\\", stock: 50, precioUnitario: 30.00, categoria: \\\"Categoría 1\\\", subcategoria: \\\"Subcategoría 1\\\", proveedor: \\\"Proveedor C\\\" }) { codigoProducto, nombreProducto, stock, precioUnitario } }\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los Productos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tL2lzc3VlciIsInVwbiI6Impkb2VAcXVhcmt1cy5pbyIsImdyb3VwcyI6WyJhZG1pbiJdLCJiaXJ0aGRhdGUiOiIyMDAxLTA3LTEzIiwiaWF0IjoxNzMwODM0NTg1LCJleHAiOjE3MzA4MzQ4ODUsImp0aSI6IjAzMDU1ODkyLThjYmUtNGJkYy1hNmIwLTVjYjQ3NjA0ZGNkYSJ9.putKVPRHoHydQO7xT9Yeo9qAdVO2SNfAtQQxxOYso9K-QJFWKEJu7FVAh5jA8Aba84TMScljnu8w71y59zSk3_4nfkpvFczWas1oFqJha_iv7QYDtHz8gK7rCMYRmLhKD4jFfJtgDpHMSUR-u62-0NnTdS18sQczVTtfLzqRmG0cEo12E-f9usn46BXfZJcf_6mKRkmHH_9noc6cc-5j_UMVs3_cnojTNHc2rolYW1IHhWZN9PmUsJCjHS9wVtBMMOu3AwCUxQm3U3_zeGcJd391_DXVoumsQtuKkDhBDsYyNWGv3qnz7iPay3rVqd8-zHFtwRz2LqP-JMQMO-ZE6Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"{ allProducts { codigoProducto, nombreProducto, stock, precioUnitario, categoria, subcategoria, proveedor } }\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Producto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tL2lzc3VlciIsInVwbiI6Impkb2VAcXVhcmt1cy5pbyIsImdyb3VwcyI6WyJhZG1pbiJdLCJiaXJ0aGRhdGUiOiIyMDAxLTA3LTEzIiwiaWF0IjoxNzMwODM0NjUwLCJleHAiOjE3MzA4MzQ5NTAsImp0aSI6ImIyMWEzMGFlLTQ0NDYtNGQxYi1hODFhLTkyNGUyNWU5YmRlNSJ9.UcT9uJubxKqCZqTNYR35LI4EpgbZy9uXyRlY33B8MUmQlk2ma1v3BVuIlWKaWlUeU74O3i_jjDJI7tRMJX_Yws4_a9KV2w4-lvDRrZphxaAbUGdLD9Je_DQt1_vheOm-TMKFJFzfw9OuG1xMIFKNgIWUQ1Dlqt4Xuv7vru8UueDHBVmElamVlTPK3o0KGKrpZ-q576ZYIGoU5YwMqvKVKtk3Vbpi8UVwhW0IKJWE33nXphSoFNjcVMVNEpoWuTC0-6DGIbgkcMAZaQQZ3tAMLBvsKiEDskBtLpuE676qbRT9Bf6aSACxBJBJ7qFl6zK04KZ-Cpy3GV-Iud1RX87RtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"mutation { deleteProduct(productId: \\\"P005\\\") }\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Producto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tL2lzc3VlciIsInVwbiI6Impkb2VAcXVhcmt1cy5pbyIsImdyb3VwcyI6WyJhZG1pbiJdLCJiaXJ0aGRhdGUiOiIyMDAxLTA3LTEzIiwiaWF0IjoxNzMwODM0NjUwLCJleHAiOjE3MzA4MzQ5NTAsImp0aSI6ImIyMWEzMGFlLTQ0NDYtNGQxYi1hODFhLTkyNGUyNWU5YmRlNSJ9.UcT9uJubxKqCZqTNYR35LI4EpgbZy9uXyRlY33B8MUmQlk2ma1v3BVuIlWKaWlUeU74O3i_jjDJI7tRMJX_Yws4_a9KV2w4-lvDRrZphxaAbUGdLD9Je_DQt1_vheOm-TMKFJFzfw9OuG1xMIFKNgIWUQ1Dlqt4Xuv7vru8UueDHBVmElamVlTPK3o0KGKrpZ-q576ZYIGoU5YwMqvKVKtk3Vbpi8UVwhW0IKJWE33nXphSoFNjcVMVNEpoWuTC0-6DGIbgkcMAZaQQZ3tAMLBvsKiEDskBtLpuE676qbRT9Bf6aSACxBJBJ7qFl6zK04KZ-Cpy3GV-Iud1RX87RtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"mutation { updateProduct(productId: \\\"P099\\\", product: { codigoProducto: \\\"P099\\\", nombreProducto: \\\"Producto E Actualizado\\\", stock: 40, precioUnitario: 35.00, categoria: \\\"Categoría 1\\\", subcategoria: \\\"Subcategoría 2\\\", proveedor: \\\"Proveedor C\\\" }) { codigoProducto, nombreProducto, stock, precioUnitario } }\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consultas Avanzadas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJodHRwczovL2V4YW1wbGUuY29tL2lzc3VlciIsInVwbiI6Impkb2VAcXVhcmt1cy5pbyIsImdyb3VwcyI6WyJhZG1pbiJdLCJiaXJ0aGRhdGUiOiIyMDAxLTA3LTEzIiwiaWF0IjoxNzMwODM0NjUwLCJleHAiOjE3MzA4MzQ5NTAsImp0aSI6ImIyMWEzMGFlLTQ0NDYtNGQxYi1hODFhLTkyNGUyNWU5YmRlNSJ9.UcT9uJubxKqCZqTNYR35LI4EpgbZy9uXyRlY33B8MUmQlk2ma1v3BVuIlWKaWlUeU74O3i_jjDJI7tRMJX_Yws4_a9KV2w4-lvDRrZphxaAbUGdLD9Je_DQt1_vheOm-TMKFJFzfw9OuG1xMIFKNgIWUQ1Dlqt4Xuv7vru8UueDHBVmElamVlTPK3o0KGKrpZ-q576ZYIGoU5YwMqvKVKtk3Vbpi8UVwhW0IKJWE33nXphSoFNjcVMVNEpoWuTC0-6DGIbgkcMAZaQQZ3tAMLBvsKiEDskBtLpuE676qbRT9Bf6aSACxBJBJ7qFl6zK04KZ-Cpy3GV-Iud1RX87RtA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/products/search?maxPrice=500",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"search"
+							],
+							"query": [
+								{
+									"key": "maxPrice",
+									"value": "500"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Registro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"eddy\",\n  \"email\": \"eddy@test.com\",\n  \"password\": \"12345\",\n  \"role\": \"admin\" // admin o user\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/adduser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"adduser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"eddy@test.com\",\n  \"password\": \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

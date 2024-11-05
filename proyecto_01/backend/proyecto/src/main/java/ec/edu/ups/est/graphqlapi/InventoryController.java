@@ -3,6 +3,7 @@ package ec.edu.ups.est.graphqlapi;
 import ec.edu.ups.est.database.entity.Product;
 import ec.edu.ups.est.database.service.ProductService;
 import ec.edu.ups.est.security.Secured;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.graphql.*;
 
@@ -16,20 +17,23 @@ public class InventoryController {
 
     @Query("allProducts")
     @Description("Get all products")
+    @RolesAllowed({ "user", "admin" })
     public List<Product> geAlltProducts() {
         return productService.listarProductos();
     }
 
     @Mutation
     @Description("Add a new product")
-    @Secured
+    //@Secured
+    @RolesAllowed({"admin" })
     public Product addProduct(Product product) {
         return productService.createProduct(product);
     }
 
     @Mutation
     @Description("Delete a product by ID")
-    @Secured
+    //@Secured
+    @RolesAllowed({"admin" })
    public boolean deleteProduct(String productId) {
         try {
             productService.deleteProduct(productId);
@@ -41,7 +45,8 @@ public class InventoryController {
 
     @Mutation
     @Description("Update a product by ID")
-    @Secured
+    //@Secured
+    @RolesAllowed({"admin" })
    public Product updateProduct(String productId,Product product) {
         return  productService.editarProducto(productId,product);
    }
