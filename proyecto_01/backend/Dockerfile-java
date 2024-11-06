@@ -1,0 +1,28 @@
+# Etapa de construcción
+FROM maven:3.9-amazoncorretto-21 AS build
+WORKDIR /app
+
+# Copiamos el proyecto completo
+COPY ./proyecto/pom.xml ./pom.xml
+COPY ./proyecto/src ./src
+COPY ./proyecto/privateKey.pem ./privateKey.pem
+
+# Empaquetamos la aplicación
+RUN mvn package -DskipTests
+
+# Etapa de ejecución
+FROM amazoncorretto:21-alpine
+
+# Argumentos para configurar la conexión a la base de datos
+ENV QUARKUS_DATASOURCE_JDBC_URL=jdbc:postgresql://postgres:5432/inventario_db \
+    QUARKUS_DATASOURCE_USERNAME=quarkus_user \
+    QUARKUS_DATASOURCE_PASSWORD=quarkus_password
+
+WORKDIR /app
+
+# Copiamos todo el directorio quarkus-app
+COPY --from=build /app/target/quarkus-app/ /app/
+COPY --from=build /app/privateKey.pem /app/privateKey.pem
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "quarkus-run.jar"]
