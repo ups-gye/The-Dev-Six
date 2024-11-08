@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {Observable} from "rxjs";
 import {Product} from "../models/Product";
 import {map} from "rxjs/operators";
+import {User} from "../models/User";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class ProductService {
     this.url_graphql = environment.url_graphql
     this.url_rest = environment.url_rest
 
+  }
+
+  register(user: User): Observable<any> {
+    return this.http.post<any>(`${this.url_rest}auth/adduser`, user);
   }
 
   getProducts(body: any): Observable<any> {
@@ -91,7 +96,7 @@ export class ProductService {
     if (filtros.category) params = params.set('category', filtros.category);
     if (filtros.subcategory) params = params.set('subcategory', filtros.subcategory);
 
-    return this.http.get<any>(this.url_rest, { params }).pipe(
+    return this.http.get<any>(this.url_rest+'products/search', { params }).pipe(
       map(response => response.frame || []) // Extrae el array de productos desde `frame`
     );
   }

@@ -45,7 +45,7 @@ import {Subscription} from "rxjs";
   styleUrl: './producto.component.scss'
 })
 export class ProductoComponent implements OnInit {
-  producto: Product = {} as Product; // Asegúrate de que `Product` esté correctamente importado
+  producto: Product = {} as Product;
   public visible = false;
   public modalVisible = false;
   public modalMessage = '';
@@ -53,7 +53,6 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.listenToWebSocket();
-
   }
 
   constructor(private productService: ProductService, private webSocketService:WebSocketService) {}

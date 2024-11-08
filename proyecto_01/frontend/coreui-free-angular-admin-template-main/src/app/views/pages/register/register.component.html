@@ -1,38 +1,66 @@
-<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center"
+     style="background-color: #f7f7f7; display: flex; justify-content: center; align-items: center; height: 100vh;">
   <c-container>
     <c-row class="justify-content-center">
       <c-col lg="7" md="9" xl="6">
-        <c-card class="mx-4">
+        <c-card class="mx-4" style="border-radius: 1rem; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);">
           <c-card-body class="p-4">
-            <form cForm>
-              <h1>Register</h1>
-              <p class="text-body-secondary">Create your account</p>
+            <form #f="ngForm" (ngSubmit)="f.form.valid && registerUser(f)">
+              <h1 style="font-size: 2rem; font-weight: bold; color: #333;">Registro</h1>
+              <p class="text-body-secondary" style="color: #6c757d;">Registrate</p>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilUser"></svg>
                 </span>
-                <input autoComplete="name" cFormControl placeholder="Username" />
+                <input ngModel name="name" autoComplete="name" cFormControl placeholder="Username"
+                       style="padding: 10px; font-size: 1rem; border-radius: 0.375rem; border: 1px solid #ccc; background-color: #f1f3f5;"/>
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>&#64;</span>
-                <input autoComplete="email" cFormControl placeholder="Email" />
+                <input ngModel name="email" autoComplete="email" cFormControl placeholder="Email"
+                       style="padding: 10px; font-size: 1rem; border-radius: 0.375rem; border: 1px solid #ccc; background-color: #f1f3f5;"/>
               </c-input-group>
               <c-input-group class="mb-3">
                 <span cInputGroupText>
                   <svg cIcon name="cilLockLocked"></svg>
                 </span>
-                <input autoComplete="new-password" cFormControl placeholder="Password" type="password" />
+                <input ngModel name="password" autoComplete="new-password" cFormControl placeholder="Password"
+                       type="password"
+                       style="padding: 10px; font-size: 1rem; border-radius: 0.375rem; border: 1px solid #ccc; background-color: #f1f3f5;"/>
               </c-input-group>
               <c-input-group class="mb-4">
-                <span cInputGroupText>
-                  <svg cIcon name="cilLockLocked"></svg>
-                </span>
-                <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
+                    <span cInputGroupText>
+                      <svg cIcon name="cilUser"></svg>
+                    </span>
+                <select ngModel name="role" cFormControl [style.padding]="'0.5rem'" [style.borderRadius]="'4px'" [style.border]="'1px solid #ccc'">
+                  <option value="admin">Admin</option>
+                  <option value="user">User</option>
+                </select>
               </c-input-group>
               <div class="d-grid">
-                <button cButton color="success">Create Account</button>
+                <button type="submit" [style.width]="'50%'" [style.display]="'block'"
+                        [style.margin]="'0 auto'"
+                        [style.background-color]="'#17a2b8'" [style.border]="'1px solid #17a2b8'"
+                        [style.color]="'white'" [style.padding]="'0.75rem 1.5rem'"
+                        [style.border-radius]="'0.375rem'" [style.font-size]="'1.125rem'"
+                        [style.font-weight]="'bold'" [style.transition]="'background-color 0.3s ease'" >
+                  Registrarse
+                </button>
               </div>
             </form>
+
+
+            <c-modal [(visible)]="modalVisible" backdrop="static" keyboard="false">
+              <c-modal-header>
+                <h5 cModalTitle>Información</h5>
+              </c-modal-header>
+              <c-modal-body>
+                {{ modalMessage }}
+              </c-modal-body>
+              <c-modal-footer>
+                <button cButton color="primary" (click)="closeModal()">Cerrar</button>
+              </c-modal-footer>
+            </c-modal>
           </c-card-body>
         </c-card>
       </c-col>
