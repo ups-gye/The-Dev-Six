@@ -15,6 +15,8 @@ import org.eclipse.microprofile.jwt.Claims;
 import org.jboss.resteasy.reactive.RestResponse;
 import ec.edu.ups.est.database.entity.UserEntity;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
@@ -122,6 +124,8 @@ public class AuthController {
                 .upn("jdoe@quarkus.io")
                 .groups(roles)
                 .claim(Claims.birthdate.name(), "2001-07-13")
+                .expiresAt(Instant.now().plus(Duration.ofHours(1)))
+                .issuedAt(Instant.now())
                 .sign();
 
         return token;
