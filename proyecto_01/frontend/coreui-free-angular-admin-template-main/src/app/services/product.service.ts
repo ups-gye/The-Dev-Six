@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {environment} from "../environments/environment";
 import {Observable} from "rxjs";
 import {Product} from "../models/Product";
@@ -16,15 +16,16 @@ export class ProductService {
   constructor(private http: HttpClient) {
     this.url_graphql = environment.url_graphql
     this.url_rest = environment.url_rest
-
   }
 
-  register(user: User): Observable<any> {
-    return this.http.post<any>(`${this.url_rest}auth/adduser`, user);
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token'); // Obtén el token del localStorage
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}` // Agrega el JWT en el encabezado Authorization
+    });
   }
-
   getProducts(body: any): Observable<any> {
-    return this.http.post(this.url_graphql, body);
+    return this.http.post(this.url_graphql, body, { headers: this.getAuthHeaders() });
   }
 
   createProduct(product: any) {
@@ -50,7 +51,7 @@ export class ProductService {
     }`
     };
     console.log(body);
-    return this.http.post(this.url_graphql, body);
+    return this.http.post(this.url_graphql, body, { headers: this.getAuthHeaders() });
   }
 
   updateProduct(product: any) {
@@ -76,7 +77,7 @@ export class ProductService {
     }`
     };
     console.log(body);
-    return this.http.post(this.url_graphql, body);
+    return this.http.post(this.url_graphql, body, { headers: this.getAuthHeaders() });
   }
 
   deleteProduct(productId: string) {
@@ -85,7 +86,7 @@ export class ProductService {
       deleteProduct(productId: "${productId}")
     }`
     };
-    return this.http.post(this.url_graphql, body);
+    return this.http.post(this.url_graphql, body, { headers: this.getAuthHeaders() });
   }
 
   buscarProductos(filtros: any): Observable<Product[]> {
@@ -96,7 +97,9 @@ export class ProductService {
     if (filtros.category) params = params.set('category', filtros.category);
     if (filtros.subcategory) params = params.set('subcategory', filtros.subcategory);
 
-    return this.http.get<any>(this.url_rest+'products/search', { params }).pipe(
+    return this.http.get<any>(this.url_rest+'products/search', { params,
+      headers: this.getAuthHeaders()
+    }).pipe(
       map(response => response.frame || []) // Extrae el array de productos desde `frame`
     );
   }

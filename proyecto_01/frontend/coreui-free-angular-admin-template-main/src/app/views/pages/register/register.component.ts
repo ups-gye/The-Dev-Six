@@ -20,6 +20,7 @@ import {ProductService} from "../../../services/product.service";
 import {Product} from "../../../models/Product";
 import {User} from "../../../models/User";
 import {FormsModule, NgForm} from "@angular/forms";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-register',
@@ -34,7 +35,7 @@ export class RegisterComponent implements OnInit {
   public modalVisible = false;
   public modalMessage = '';
 
-  constructor(private productService: ProductService,  private router: Router ) {
+  constructor(private userService: UserService,  private router: Router ) {
   }
 
   ngOnInit(): void {
@@ -50,20 +51,19 @@ export class RegisterComponent implements OnInit {
       this.user.password = form.value.password;
       this.user.role = form.value.role;
 
-      this.productService.register(this.user).subscribe(
+      this.userService.register(this.user).subscribe(
         (data) => {
           console.log("Usuario registrado exitosamente.");
           this.modalMessage = "Usuario registrado exitosamente.";
           this.modalVisible = true;
           setTimeout(() => {
-            this.router.navigate(['/listar-productos']);
+            this.router.navigate(['/login']);
           }, 2000);
         },
         (error) => {
           console.log("Error al crear el producto:", error);
           this.modalMessage = "Ocurrió un error al registrarse. Por favor, intenta nuevamente.";
           this.modalVisible = true; // Muestra el modal de error
-
         }
       )
 

@@ -23,6 +23,7 @@ import {IconComponent, IconDirective, IconSetService, IconModule} from '@coreui/
 import {FormsModule, NgForm} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {WebSocketService} from "../web-socket.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-listar-productos',
@@ -66,10 +67,21 @@ export class ListarProductosComponent  implements  OnInit{
   private messagesSubscription?: Subscription;
   updateVisibleModal=false;
 
-  constructor(private productService: ProductService, private webSocketService: WebSocketService) {
+  constructor(private productService: ProductService, private webSocketService: WebSocketService, private router:Router) {
   }
 
   ngOnInit(): void {
+    // Validar JWT y rol antes de cargar el componente
+    const token = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    const userRole = user?.role;
+
+    if (!token || userRole !== 'admin') {
+      console.error('Acceso denegado. Redirigiendo al login.');
+      this.router.navigate(['/login']); // Redirige al login si no se cumple el acceso
+      return;
+    }
     this.getProducts();
     this.listenToWebSocket();
 
@@ -106,8 +118,10 @@ export class ListarProductosComponent  implements  OnInit{
         }
       },
       (error) => {
-        console.error("Error fetching products:", error);
-      }
+        console.error('Acceso denegado. Redirigiendo al login.');
+        this.router.navigate(['/login']); // Redirige al login si no se cumple el acceso
+        return;
+       }
     );
   }
 

@@ -6,17 +6,19 @@
           <!-- Login Card -->
           <c-card class="p-4">
             <c-card-body>
-              <form cForm>
-                <h1 [style.text-align]="'center'" [style.color]="'#007bff'">Login</h1>
+              <form #f="ngForm" (ngSubmit)="f.form.valid && login(f)">
+                <h1 [style.text-align]="'center'" >Login</h1>
                 <p class="text-body-secondary" [style.text-align]="'center'" [style.color]="'#6c757d'">Inicie Sesion</p>
                 <c-input-group class="mb-3">
                   <span cInputGroupText>
                     <svg cIcon name="cilUser"></svg>
                   </span>
                   <input
-                    autoComplete="username"
+                    autoComplete="Email"
                     cFormControl
-                    placeholder="Username"
+                    ngModel
+                    name="email"
+                    placeholder="Email"
                     [style.padding]="'0.5rem'"
                     [style.borderRadius]="'4px'"
                     [style.border]="'1px solid #ccc'"
@@ -31,29 +33,41 @@
                     cFormControl
                     placeholder="Password"
                     type="password"
+                    ngModel
+                    name="password"
                     [style.padding]="'0.5rem'"
                     [style.borderRadius]="'4px'"
                     [style.border]="'1px solid #ccc'"
                   />
                 </c-input-group>
                 <c-row>
-                  <c-col xs="6">
-                    <button cButton class="px-3" color="primary" [style.width]="'100%'">
+                    <button  type="submit"  cButton class="px-4" color="primary"
+                            [style.width]="'50%'"
+                            [style.display]="'block'"
+                            [style.margin]="'0 auto'"
+                            [style.padding]="'0.75rem 1.5rem'"
+                            [style.border-radius]="'0.375rem'" [style.font-size]="'1.125rem'"
+                            [style.font-weight]="'bold'" [style.transition]="'background-color 0.3s ease'" >
                       Iniciar Sesion
                     </button>
-                  </c-col>
-                  <c-col class="text-right" xs="6">
-                    <button cButton class="px-0" color="link" [style.textDecoration]="'underline'" [style.color]="'#007bff'">
-                      ¿Te olvidaste tu contraseña?
-                    </button>
-                  </c-col>
                 </c-row>
               </form>
+              <c-modal [(visible)]="modalVisible" backdrop="static" keyboard="false">
+                <c-modal-header>
+                  <h5 cModalTitle>Información</h5>
+                </c-modal-header>
+                <c-modal-body>
+                  {{ modalMessage }}
+                </c-modal-body>
+                <c-modal-footer>
+                  <button cButton color="primary" (click)="closeModal()">Cerrar</button>
+                </c-modal-footer>
+              </c-modal>
             </c-card-body>
           </c-card>
 
           <!-- Register Card -->
-          <c-card [ngStyle]="{'min-width': '44%'}" class="text-white bg-gradient-primary py-5" color="info">
+          <c-card [ngStyle]="{'min-width': '44%'}" class="text-white bg-gradient-primary py-5" color="primary">
             <c-card-body class="text-center">
               <div>
                 <h2 [style.text-align]="'center'" [style.fontWeight]="'bold'" [style.color]="'#ffffff'">Registrarse</h2>
@@ -66,20 +80,21 @@
                   [active]="true"
                   cButton
                   class="mt-3"
-                  color="light"
+                  color="primary"
                   routerLink="/register"
                   [style.padding]="'0.8rem 2rem'"
                   [style.borderRadius]="'5px'"
                   [style.fontWeight]="'bold'"
-                  [style.backgroundColor]="'#28a745'"
                   [style.border]="'none'"
                   [style.color]="'#ffffff'"
-                  [style.boxShadow]="'0 4px 6px rgba(0, 0, 0, 0.1)'"
+                [style.boxShadow]="'0 4px 6px rgba(0, 0, 0, 0.1)'"
                   [style.transition]="'background-color 0.3s, transform 0.3s'"
+                  (click)="redirectToRegister()"
                 >
                   Registrarse Ahora!
                 </button>
               </div>
+
             </c-card-body>
           </c-card>
         </c-card-group>

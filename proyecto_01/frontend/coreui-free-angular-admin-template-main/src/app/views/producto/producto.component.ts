@@ -20,6 +20,7 @@ import {FormsModule, NgForm} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {WebSocketService} from "../web-socket.service";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-producto',
   standalone: true,
@@ -52,10 +53,22 @@ export class ProductoComponent implements OnInit {
   private messagesSubscription: Subscription | undefined;
 
   ngOnInit(): void {
+    // Validar JWT y rol antes de cargar el componente
+    const token = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    const userRole = user?.role;
+
+    if (!token || userRole !== 'admin') {
+      console.error('Acceso denegado. Redirigiendo al login.');
+      this.router.navigate(['/login']); // Redirige al login si no se cumple el acceso
+      return;
+    }
     this.listenToWebSocket();
   }
 
-  constructor(private productService: ProductService, private webSocketService:WebSocketService) {}
+  constructor(private productService: ProductService, private webSocketService:WebSocketService,
+    private router:Router) {}
 
   createProduct(form: NgForm) {
     if (form.valid) { // Verifica que el formulario sea válido antes de continuar

@@ -23,6 +23,7 @@ import {IconComponent, IconDirective, IconSetService, IconModule} from '@coreui/
 import {FormsModule, NgForm} from "@angular/forms";
 import {WebSocketService} from "../web-socket.service";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-buscar-productos',
@@ -66,10 +67,21 @@ export class BuscarProductosComponent implements OnInit {
     category: '',
     subcategory: '',
   };
-  constructor(private productService: ProductService, private webSocketService: WebSocketService) {
+  constructor(private productService: ProductService, private webSocketService: WebSocketService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    const userRole = user?.role;
+
+    if (!token ) {
+      console.error(' Redirigiendo al login.');
+      this.router.navigate(['/login']); // Redirige al login si no se cumple el acceso
+      return;
+    }
    }
 
   buscarProductos(): void {
@@ -84,9 +96,10 @@ export class BuscarProductosComponent implements OnInit {
   }
 
   limpiarFiltros(): void {
-    this.filtros = { productName: '', minPrice: 'null', maxPrice: 'null', category: '', subcategory: '' };
-    this.productos = []; // Limpiar la tabla
-    this.buscarProductos();
+    this.filtros = { productName: '', minPrice: '', maxPrice: '', category: '', subcategory: '' };
+    this.productos = [];
+
+    // this.buscarProductos();
 
   }
 }

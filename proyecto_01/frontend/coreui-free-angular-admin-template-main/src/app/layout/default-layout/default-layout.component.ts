@@ -17,6 +17,7 @@ import {
 
 import { DefaultFooterComponent, DefaultHeaderComponent } from './';
 import { navItems } from './_nav';
+import {CustomNavData, customNavItems} from "./custom_nav";
 
 function isOverflown(element: HTMLElement) {
   return (
@@ -49,7 +50,23 @@ function isOverflown(element: HTMLElement) {
   ]
 })
 export class DefaultLayoutComponent {
-  public navItems = navItems;
+  // public navItems = navItems;
+  public navItems: CustomNavData[] = []; // Usa el tipo CustomNavData[] aquí
+
+  ngOnInit(): void {
+    this.navItems = this.getNavItemsForRole();
+  }
+
+  private getNavItemsForRole(): CustomNavData[] {
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    const userRole = user?.role?.toLowerCase(); // Convertir el rol del usuario a minúsculas
+
+    // Filtrar los elementos de navegación en función del rol del usuario
+    return customNavItems.filter(item =>
+      item.roles ? item.roles.includes(userRole) : true
+    );
+  }
 
   onScrollbarUpdate($event: any) {
     // if ($event.verticalUsed) {

@@ -1,11 +1,12 @@
 import {RouterModule, Routes} from '@angular/router';
 import { DefaultLayoutComponent } from './layout';
 import {NgModule} from "@angular/core";
+import {authGuard} from "./guards/auth.guard";
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'listar-productos',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -34,40 +35,24 @@ export const routes: Routes = [
 
       {
         path: 'listar-productos',
-        loadChildren: () => import('./views/listar-productos/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/listar-productos/routes').then((m) => m.routes),
+        canActivate: [authGuard],
+        data: { role: 'admin' } // Solo accesible para administradores
+
       },
       {
         path: 'product',
-        loadChildren: () => import('./views/producto/routes').then((m) => m.routes)
+        loadChildren: () => import('./views/producto/routes').then((m) => m.routes),
+        canActivate: [authGuard],
+        data: { role: 'admin' } // Accesible para usuarios y administradores
+
       },
       {
         path: 'buscar-productos',
-        loadChildren: () => import('./views/buscar-productos/routes').then((m) => m.routes)
-      },
+        loadChildren: () => import('./views/buscar-productos/routes').then((m) => m.routes),
+        canActivate: [authGuard],
+        data: { role: ['admin', 'user'] } // Accesible para admin y user
 
-      {
-        path: 'buttons',
-        loadChildren: () => import('./views/buttons/routes').then((m) => m.routes)
-      },
-      {
-        path: 'forms',
-        loadChildren: () => import('./views/forms/routes').then((m) => m.routes)
-      },
-      {
-        path: 'icons',
-        loadChildren: () => import('./views/icons/routes').then((m) => m.routes)
-      },
-      {
-        path: 'widgets',
-        loadChildren: () => import('./views/widgets/routes').then((m) => m.routes)
-      },
-      {
-        path: 'charts',
-        loadChildren: () => import('./views/charts/routes').then((m) => m.routes)
-      },
-      {
-        path: 'pages',
-        loadChildren: () => import('./views/pages/routes').then((m) => m.routes)
       }
     ]
   },
